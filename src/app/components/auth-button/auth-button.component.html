@@ -1,0 +1,31 @@
+@if (currentUser$ | async; as user) {
+<div class="user-info">
+  <tui-avatar
+    [src]="user.photoURL || ''"
+    size="s"
+    class="user-avatar"
+  ></tui-avatar>
+  <span class="user-name">{{ user.displayName || user.email }}</span>
+  <button
+    tuiButton
+    type="button"
+    size="s"
+    appearance="secondary"
+    (click)="logout()"
+  >
+    Выйти
+  </button>
+</div>
+} @else {
+<button
+  tuiButton
+  type="button"
+  size="s"
+  appearance="primary"
+  (click)="login()"
+  class="google-login-button"
+>
+    <tui-icon icon="https://raw.githubusercontent.com/gilbarbara/logos/de2c1f96ff6e74ea7ea979b43202e8d4b863c655/logos/google-icon.svg" />
+  Войти через Google
+</button>
+}

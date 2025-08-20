@@ -1,0 +1,19 @@
+<tui-root>
+  @if (isLoading$ | async) {
+  <tui-loader [overlay]="true"></tui-loader>
+  }
+  @if (authService.currentUser$ | async; as user) {
+    @if (user) {
+    <header tuiAppearance="floating" tuiCardLarge class="app-header">
+      <div class="header-content">
+        <h2 tuiTitle>Финансовый контроль</h2>
+        <app-auth-button></app-auth-button>
+      </div>
+    </header>
+    }
+  }
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</tui-root>

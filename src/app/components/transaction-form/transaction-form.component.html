@@ -1,0 +1,69 @@
+<form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="transaction-form">
+  <h2>Добавить операцию</h2>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Тип операции</label>
+      <div class="type-selector">
+        <button
+          tuiButton
+          [class._active]="transactionForm.get('type')?.value === INCOME"
+          (click)="updateType(INCOME)"
+        >
+          Доход
+        </button>
+        <button
+          tuiButton
+          [class._active]="transactionForm.get('type')?.value === EXPENSE"
+          (click)="updateType(EXPENSE)"
+        >
+          Расход
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-column">
+    <tui-textfield tuiChevron>
+      <input tuiSelect formControlName="category" placeholder="Категория" />
+
+      <tui-data-list-wrapper *tuiTextfieldDropdown new [items]="categories" />
+    </tui-textfield>
+    <tui-textfield>
+      <label tuiLabel>Сумма</label>
+
+      <input tuiInputNumber formControlName="amount" />
+    </tui-textfield>
+
+    <tui-textfield>
+      <label tuiLabel>Дата</label>
+      <input tuiInputDate formControlName="date" [max]="maxDate" [min]="minDate" />
+      <tui-calendar *tuiTextfieldDropdown />
+    </tui-textfield>
+
+    <tui-textfield [style.margin-block-end.rem]="1">
+      <label tuiLabel>Описание</label>
+      <textarea
+        tuiTextarea
+        formControlName="description"
+        [limit]="100"
+        [max]="6"
+        [min]="3"
+      ></textarea>
+    </tui-textfield>
+
+    <button tuiButton type="submit" [disabled]="!transactionForm.valid" class="submit-btn">
+      Добавить операцию
+    </button>
+  </div>
+
+  @if (message) {
+  <div
+    class="message"
+    [class.success]="messageType === 'success'"
+    [class.error]="messageType === 'error'"
+  >
+    {{ message }}
+  </div>
+  }
+</form>

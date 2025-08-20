@@ -1,0 +1,77 @@
+@if (isLoading) {
+<tui-loader></tui-loader>
+} @else {
+<section tuiAppearance="floating" tuiCardLarge class="transaction-detail">
+  <div class="header">
+    <button tuiButton type="button" appearance="flat" routerLink="/">← Назад к списку</button>
+
+    <div class="actions">
+      @if (!isEditing) {
+      <button tuiButton type="button" appearance="primary" (click)="toggleEdit()">
+        Редактировать
+      </button>
+      }
+    </div>
+  </div>
+
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="transaction-form">
+    <h2>{{ isEditing ? 'Редактирование операции' : 'Детали операции' }}</h2>
+
+    <div class="form-column">
+      <div class="form-group">
+        <label>Тип операции</label>
+        <div class="type-selector">
+          <button
+            tuiButton
+            type="button"
+            [class._active]="transactionForm.get('type')?.value === INCOME"
+            [disabled]="!isEditing"
+            (click)="updateType(INCOME)"
+          >
+            Доход
+          </button>
+          <button
+            tuiButton
+            type="button"
+            [class._active]="transactionForm.get('type')?.value === EXPENSE"
+            [disabled]="!isEditing"
+            (click)="updateType(EXPENSE)"
+          >
+            Расход
+          </button>
+        </div>
+      </div>
+
+      <tui-textfield tuiChevron>
+        <input tuiSelect formControlName="category" placeholder="Категория" />
+        <tui-data-list-wrapper *tuiTextfieldDropdown new [items]="categories" />
+      </tui-textfield>
+
+      <tui-textfield>
+        <label tuiLabel>Сумма</label>
+        <input tuiInputNumber formControlName="amount" />
+      </tui-textfield>
+
+      <tui-textfield>
+        <label tuiLabel>Дата</label>
+        <input tuiInputDate formControlName="date" [max]="maxDate" [min]="minDate" />
+        <tui-calendar *tuiTextfieldDropdown />
+      </tui-textfield>
+
+      <tui-textfield [style.margin-block-end.rem]="1">
+        <label tuiLabel>Описание</label>
+        <textarea tuiTextarea formControlName="description" [limit]="100"></textarea>
+      </tui-textfield>
+
+      @if (isEditing) {
+      <div class="form-actions">
+        <button tuiButton type="submit" [disabled]="!transactionForm.valid">Сохранить</button>
+        <button tuiButton type="button" appearance="secondary" (click)="toggleEdit()">
+          Отменить
+        </button>
+      </div>
+      }
+    </div>
+  </form>
+</section>
+}

@@ -1,0 +1,26 @@
+<section class="transaction-history">
+  <h2>История операций</h2>
+
+  <div class="transaction-list">
+    @if (transactions$ | async; as transactions) { @if (transactions.length === 0) {
+    <div class="no-transactions">Транзакций пока нет</div>
+    } @else { @for (transaction of transactions; track transaction.id) {
+    <a [routerLink]="['/transaction', transaction.id]" class="transaction-item">
+      <div class="transaction-header">
+        <span class="category" [style.background-color]="getCategoryColor(transaction.category)">
+          {{ transaction.category }}
+        </span>
+        <span class="amount">
+          {{ transaction.amount | transactionAmount : transaction.type === 'income' }}
+        </span>
+      </div>
+      <div class="transaction-date">{{ formatDate(transaction.date) }}</div>
+      @if (transaction.description) {
+      <div class="transaction-description">{{ transaction.description }}</div>
+      }
+    </a>
+    } } } @else {
+    <tui-loader size="l"></tui-loader>
+    }
+  </div>
+</section>
