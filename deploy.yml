@@ -17,9 +17,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build
-        run: npx nx build your-app-name --configuration=production
+        run: |
+          REPO_NAME=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+          npx nx build course-work --configuration=production --base-href="/$REPO_NAME/"
+      - name: Create .nojekyll
+        run: touch ./dist/course-work/browser/.nojekyll
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/apps/your-app-name
+          publish_dir: ./dist/course-work/browser
