@@ -1,118 +1,51 @@
 {
-  "name": "course-work",
-  "$schema": "node_modules/nx/schemas/project-schema.json",
-  "includedScripts": [],
-  "projectType": "application",
-  "prefix": "app",
-  "sourceRoot": "./src",
-  "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/course-work",
-        "browser": "./src/main.ts",
-        "polyfills": ["zone.js"],
-        "tsConfig": "tsconfig.app.json",
-        "inlineStyleLanguage": "less",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "public"
-          },
-          {
-            "glob": "**/*",
-            "input": "node_modules/@taiga-ui/icons/src",
-            "output": "assets/taiga-ui/icons"
-          }
-        ],
-        "styles": [
-          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
-          "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
-          "./src/styles.less"
-        ],
-        "optimization": {
-          "scripts": true,
-          "styles": true,
-          "fonts": true
+  "build": {
+    "executor": "@angular/build:application",
+    "outputs": ["{options.outputPath}"],
+    "options": {
+      "outputPath": "dist/course-work/browser",
+      "browser": "./src/main.ts",
+      "polyfills": ["zone.js"],
+      "tsConfig": "tsconfig.app.json",
+      "inlineStyleLanguage": "less",
+      "assets": [
+        {
+          "glob": "**/*",
+          "input": "public"
         },
-        "outputHashing": "all",
-        "sourceMap": false,
-        "namedChunks": false,
-        "extractLicenses": true,
-        "budgets": [
-          {
-            "type": "initial",
-            "maximumWarning": "3mb",
-            "maximumError": "5mb"
-          },
-          {
-            "type": "anyComponentStyle",
-            "maximumWarning": "10kb",
-            "maximumError": "20kb"
-          }
-        ]
-      },
-      "configurations": {
-        "production": {
-          "optimization": true,
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "3mb",
-              "maximumError": "5mb"
-            },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "10kb",
-              "maximumError": "20kb"
-            }
-          ]
-        },
-        "development": {
-          "optimization": false,
-          "extractLicenses": false,
-          "sourceMap": true
+        {
+          "glob": "**/*",
+          "input": "node_modules/@taiga-ui/icons/src",
+          "output": "assets/taiga-ui/icons"
         }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "continuous": true,
-      "executor": "@angular/build:dev-server",
-      "configurations": {
-        "production": {
-          "buildTarget": "course-work:build:production"
+      ],
+      "styles": [
+        "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+        "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
+        "./src/styles.less"
+      ],
+      "optimization": true,
+      "outputHashing": "all",
+      "sourceMap": false,
+      "namedChunks": false,
+      "extractLicenses": true,
+      "budgets": [
+        {
+          "type": "initial",
+          "maximumWarning": "3mb",
+          "maximumError": "5mb"
         },
-        "development": {
-          "buildTarget": "course-work:build:development"
+        {
+          "type": "anyComponentStyle",
+          "maximumWarning": "10kb",
+          "maximumError": "20kb"
         }
-      },
-      "defaultConfiguration": "development"
+      ],
+      "baseHref": "/"
     },
-    "extract-i18n": {
-      "executor": "@angular/build:extract-i18n",
-      "options": {
-        "buildTarget": "course-work:build"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "options": {
-        "lintFilePatterns": ["./src"]
-      }
-    },
-    "serve-static": {
-      "continuous": true,
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "course-work:build",
-        "staticFilePath": "dist/course-work/browser",
-        "spa": true
+    "configurations": {
+      "production": {
+        "baseHref": "/"
       }
     }
   }

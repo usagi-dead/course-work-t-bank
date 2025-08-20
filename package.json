@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "build": "nx build",
+    "build": "nx build course-work --configuration=production --base-href=/",
+    "netlify-build": "npm run build",
     "test": "nx test",
     "format": "prettier --write \"src/**/*.{ts,html,scss}\"",
     "lint": "ng lint"
